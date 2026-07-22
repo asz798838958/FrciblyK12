@@ -1,9 +1,12 @@
 # Stage 1: 构建前端
+# WelcomeDialog 从 frontend/src/components 用 ../../../assets 引用仓库根 assets/
+# 必须把 assets 放到 /app/assets，相对路径才能解析
 FROM node:20-slim AS frontend-builder
 WORKDIR /app/frontend
 COPY frontend/package*.json ./
 RUN npm ci
 COPY frontend/ ./
+COPY assets /app/assets
 RUN npm run build
 
 # Stage 2: Python 后端 + 运行环境
